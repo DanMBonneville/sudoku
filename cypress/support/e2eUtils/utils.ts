@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 export const getStartingSudokuValues = () => {
   type GridMap = { [key: number]: { [key: number]: number } };
   let startingBoard: GridMap;
@@ -13,14 +11,14 @@ export const getStartingSudokuValues = () => {
     cy.findByTestId(`cell_${index}`).then(($element) => {
       cellValue = $element.text();
       startingBoard[row][col] = Number(cellValue);
-      if (cellValue != '0') startingCompletedIndices.push(index);
+      if (cellValue !== '0') startingCompletedIndices.push(index);
     });
   }
   return cy.wrap({ startingBoard, startingCompletedIndices });
 };
 
 export const solveBoard = (grid: any, r = 0, c = 0): boolean => {
-  if (r == 9) return true;
+  if (r === 9) return true;
   else if (c === 9) return solveBoard(grid, r + 1, 0);
   else if (grid[r][c] !== 0) return solveBoard(grid, r, c + 1);
   else {
