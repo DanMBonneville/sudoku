@@ -6,6 +6,7 @@
   "license": "MIT",
   "homepage": "htpps://DanMBonneville.github.io/sudoku",
   "dependencies": {
+    "@jest/globals": "^29.7.0",
     "@types/node": "^15.14.9",
     "@types/react": "^18.0.24",
     "lodash.clonedeep": "^4.5.0",

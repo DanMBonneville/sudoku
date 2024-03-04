@@ -11,66 +11,68 @@ describe('Solve The Sudoku Boards', () => {
   let startingCompletedIndices: any;
 
   describe('Solve Sudoku Board - Easy', () => {
-    const start = performance.now();
     beforeEach(() => {
-      cy.visit('/').then(() => {
-        cy.get('#gameBoard').waitForStableDOM(defaultStabilityOptions);
-        getStartingSudokuValues().then((startingSudokuValues) => {
-          startingCompletedIndices =
-            startingSudokuValues.startingCompletedIndices;
-          sudokuBoard = startingSudokuValues.startingBoard;
-          solveBoard(sudokuBoard);
-        });
+      cy.visit('/');
+      cy.get('#gameBoard').waitForStableDOM(defaultStabilityOptions);
+      getStartingSudokuValues().then((startingSudokuValues) => {
+        startingCompletedIndices =
+          startingSudokuValues.startingCompletedIndices;
+        sudokuBoard = startingSudokuValues.startingBoard;
+        solveBoard(sudokuBoard);
       });
     });
 
-    it('Solves the puzzle using backtracking', () => {
+    it('Solves the puzzle on easy difficulty', () => {
       fillMissingValuesInGrid(sudokuBoard, startingCompletedIndices);
-      // TODO: fix bug associated with checking for solved Grid
+      cy.findByText('You').should('be.visible');
+      cy.findByText('solved').should('be.visible');
+      cy.findByText('it!').should('be.visible');
     });
   });
 
   describe('Solve Sudoku Board - Medium', () => {
     beforeEach(() => {
-      cy.visit('/').then(() => {
-        cy.findByTestId('difficulty-select')
-          .waitForStableDOM(defaultStabilityOptions)
-          .select('Medium');
-        cy.get('#gameBoard').waitForStableDOM(defaultStabilityOptions);
-        getStartingSudokuValues().then((startingSudokuValues) => {
-          startingCompletedIndices =
-            startingSudokuValues.startingCompletedIndices;
-          sudokuBoard = startingSudokuValues.startingBoard;
-          solveBoard(sudokuBoard);
-        });
+      cy.visit('/');
+      cy.findByTestId('difficulty-select')
+        .waitForStableDOM(defaultStabilityOptions)
+        .select('Medium');
+      cy.get('#gameBoard').waitForStableDOM(defaultStabilityOptions);
+      getStartingSudokuValues().then((startingSudokuValues) => {
+        startingCompletedIndices =
+          startingSudokuValues.startingCompletedIndices;
+        sudokuBoard = startingSudokuValues.startingBoard;
+        solveBoard(sudokuBoard);
       });
     });
 
-    it('Solves the puzzle using backtracking', () => {
+    it('Solves the puzzle on medium difficulty', () => {
       fillMissingValuesInGrid(sudokuBoard, startingCompletedIndices);
-      // TODO: fix bug associated with checking for solved Grid
+      cy.findByText('You').should('be.visible');
+      cy.findByText('solved').should('be.visible');
+      cy.findByText('it!').should('be.visible');
     });
   });
 
   describe('Solve Sudoku Board - Hard', () => {
     beforeEach(() => {
-      cy.visit('/').then(() => {
-        cy.findByTestId('difficulty-select')
-          .waitForStableDOM(defaultStabilityOptions)
-          .select('Hard');
-        cy.get('#gameBoard').waitForStableDOM(defaultStabilityOptions);
-        getStartingSudokuValues().then((startingSudokuValues) => {
-          startingCompletedIndices =
-            startingSudokuValues.startingCompletedIndices;
-          sudokuBoard = startingSudokuValues.startingBoard;
-          solveBoard(sudokuBoard);
-        });
+      cy.visit('/');
+      cy.findByTestId('difficulty-select')
+        .waitForStableDOM(defaultStabilityOptions)
+        .select('Hard');
+      cy.get('#gameBoard').waitForStableDOM(defaultStabilityOptions);
+      getStartingSudokuValues().then((startingSudokuValues) => {
+        startingCompletedIndices =
+          startingSudokuValues.startingCompletedIndices;
+        sudokuBoard = startingSudokuValues.startingBoard;
+        solveBoard(sudokuBoard);
       });
     });
 
-    it('Solves the puzzle using backtracking', () => {
+    it('Solves the puzzle on hard', () => {
       fillMissingValuesInGrid(sudokuBoard, startingCompletedIndices);
-      // TODO: fix bug associated with checking for solved Grid
+      cy.findByText('You').should('be.visible');
+      cy.findByText('solved').should('be.visible');
+      cy.findByText('it!').should('be.visible');
     });
   });
 });
