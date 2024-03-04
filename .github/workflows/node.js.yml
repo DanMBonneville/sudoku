@@ -38,17 +38,17 @@ jobs:
 
   cypress-run:
     name: Cypress run
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    runs-on: ubuntu-latest
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
+    strategy:
+      matrix:
+        node-version: [21.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          record: true
-        env:
-          # overwrite commit message sent to Cypress Cloud
-          COMMIT_INFO_MESSAGE: ${{github.event.pull_request.title}}
-          # re-enable PR comment bot
-          COMMIT_INFO_SHA: ${{github.event.pull_request.head.sha}}
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm run cy:run
